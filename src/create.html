@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Dapp Voting</title>
+
+    <!-- Bootstrap -->
+    <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+      main {
+        margin-top: 60px;
+      }
+
+      #content {
+        display: none;
+      }
+
+      form {
+        width: 350px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        margin-bottom: 0px;
+      }
+
+      #completedTaskList .content {
+        color: grey;
+        text-decoration: line-through;
+      }
+      .topnav {
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      .topnav a {
+        float: right;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 20px;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        color: white;
+        float: left;
+      }
+      #catagory{
+        width: 350px;
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topnav">
+      <a class="active" href="index.html">Dapp Voting</a>
+      <a style="color:white ; font-family:'Courier New'" id="account" href="account.html"></a>
+      <a style="color:white ; font-family:'Courier New'" href="index.html">Home</a>
+      <a style="color:white ; font-family:'Courier New'" href="view.html">View</a>
+      <a style="color:white ; font-family:'Courier New'" href="create.html">Create</a>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <main role="main" class="col-lg-12 d-flex justify-content-center">
+          <div id="loader" class="text-center">
+            <p class="text-center">Loading...</p>
+          </div>
+          <div id="content">
+            <form onSubmit="App.createTask(); return false;">
+                <h1 align="Center">Create Vote</h1>
+                <h3>หัวข้อ</h3>
+                <input id="topic" type="text" class="form-control" placeholder="Add task..." required><br>
+                <h3>หมวดหมู่</h3>
+                <select name="catagory" id="catagory" type="text" width="100px">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <br><br>
+                <h3>รายละเอียด</h3>
+                <textarea id="comment" type="text" class="form-control" placeholder="รายละเอียด" rows="10" required></textarea><br>
+                <h3>รูปภาพ</h3>
+                <input type="file" id="img" name="img" accept="image/*"/>
+                <br><br>
+                <input type="submit">
+            </form>
+            </ul>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.3/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@truffle/contract@4.3.5/dist/truffle-contract.js"></script>
+    <script src="app.js"></script>
+    <script src="ipfs.js"></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <!-- <script src="image.js" type="module"></script> -->
+  </body>
+</html>
