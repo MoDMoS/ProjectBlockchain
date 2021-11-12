@@ -92,6 +92,7 @@ App = {
     const $taskID = $('.taskID')
     const $taskTemplate = $('.taskTemplate')
     const $taskTemplate2 = $('.taskTemplate2')
+    const $taskTemplate3 = $('.taskTemplate3')
 
 
     // Render out each task with a new task template
@@ -99,36 +100,58 @@ App = {
       // Fetch the task data from the blockchain
       const task = await App.todoList.tasks(i)
       const taskId = task[0].toNumber()
+      App.taskID = taskId
       const taskContent = "หัวข้อ: " + task[1] + " หมวดหมู่: " + task[2]
-      const taskComment = "รายละเอียด: " + task[3]
-      const taskCompleted = task[4]
+      const taskComment = " รายละเอียด: " + task[3]
+      const taskVote = task[4].toNumber()
+      const taskCompleted = task[5]
 
       // Create the html for the task
       const $newTaskID = $taskID.clone()
       const $newTaskTemplate = $taskTemplate.clone()
       const $newTaskTemplate2 = $taskTemplate2.clone()
+      const $newTaskTemplate3 = $taskTemplate3.clone()
       $newTaskID.find('.content').html(taskId)
       $newTaskTemplate.find('.content').html(taskContent)
       $newTaskTemplate2.find('.content').html(taskComment)
+      $newTaskTemplate3.find('.content').html(taskVote)
       $newTaskTemplate.find('input')
                       .prop('name', taskId)
-                      .prop('name', taskComment)
+                      .prop('comment', taskComment)
                       .prop('checked', taskCompleted)
                       .on('click', App.toggleCompleted)
+      $newTaskTemplate3.find('input')
+                        .prop('name', taskId)
+                        .prop('comment', taskComment)
+                        .prop('checked', taskCompleted)
+                        .on('click', App.voteTask)         
       // Put the task in the correct list
       if (taskCompleted) {
         $('#completedTaskList').append($newTaskTemplate)
       } else {
-        console.log($newTaskTemplate2)
-        $('#taskList').append($newTaskID,$newTaskTemplate,$newTaskTemplate2)
+        console.log($newTaskID)
+        
+        $('#taskList').append($newTaskID,$newTaskTemplate,$newTaskTemplate2,$newTaskTemplate3)
       }
 
       // Show the task
       $newTaskID.show()
       $newTaskTemplate.show()
       $newTaskTemplate2.show()
+      $newTaskTemplate3.show()
     }
+        
   },
+  voteTask: async (e) => {
+    App.setLoading(true)
+    var tasksId = e.target.name
+    tasksId = parseInt(tasksId,10)
+    console.log(typeof tasksId)
+    console.log(App.account)
+    await App.todoList.vote(tasksId ,{ from:  App.account})
+    window.location.reload()
+  },
+
 
   createTask: async () => {
     App.setLoading(true)
@@ -140,7 +163,8 @@ App = {
   },
 
   toggleCompleted: async (e) => {
-    App.setLoading(true)
+    // App.setLoading(true)
+    console.log("E"+e.target.name)
     const taskId = e.target.name
     console.log(taskId)
     await App.todoList.toggleCompleted(taskId ,{ from:  e.target.name})

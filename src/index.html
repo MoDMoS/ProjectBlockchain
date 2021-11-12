@@ -81,7 +81,7 @@
           <div id="loader" class="text-center">
             <p class="text-center">Loading...</p>
           </div>
-          <!-- <div id="content">
+          <div id="content">
             <form onSubmit="App.createTask(); return false;">
                 <h1 align="Center">Create Vote</h1>
                 <h3>หัวข้อ</h3>
@@ -102,16 +102,18 @@
                 <input type="submit" onSubmit="App.createTask(); return false;">
             </form>
             <ul id="taskList" class="list-unstyled">
-              <div class="taskTemplate" class="checkbox" style="display: none">
+              <div class="taskTemplate" style="display: none">
                 <label>
-                  <input type="checkbox" />
+                  <input type="submit" id="btn" class="btn btn-success btn-lg vote" />
                   <span class="content">Task content goes here...</span>
                 </label>
               </div>
             </ul>
             <ul id="completedTaskList" class="list-unstyled">
+              <li></li>
+              
             </ul>
-          </div> -->
+          </div>
         </main>
       </div>
     </div>

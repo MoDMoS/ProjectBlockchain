@@ -8,6 +8,7 @@ contract TodoList {
     string content; 
     string catagory;
     string comment;
+    uint vote;
     bool completed;
   }
 
@@ -18,6 +19,7 @@ contract TodoList {
     string content,
     string catagory,
     string comment,
+    uint vote,
     bool completed
   );
 
@@ -26,9 +28,12 @@ contract TodoList {
     bool completed
   );
 
-  constructor() public {
-    
-  }
+  event TaskVote(
+    uint id,
+    uint vote
+  );
+
+
 
   function createTask(string memory _content , string memory _catagory, string memory _comment) public {
     taskCount ++;
@@ -36,8 +41,9 @@ contract TodoList {
     tasks[taskCount].content = _content;
     tasks[taskCount].catagory = _catagory;
     tasks[taskCount].comment = _comment;
+    tasks[taskCount].vote = 0;
     tasks[taskCount].completed = false;
-    emit TaskCreated(taskCount, _content  , _catagory, _comment, false);
+    emit TaskCreated(taskCount, _content  , _catagory, _comment, 0, false);
   }
 
   function toggleCompleted(uint _id) public {
@@ -45,5 +51,12 @@ contract TodoList {
     _task.completed = !_task.completed;
     tasks[_id] = _task;
     emit TaskCompleted(_id, _task.completed);
+  }
+
+  function vote(uint _id) public{
+    Task memory _tasks = tasks[_id];
+    _tasks.vote = _tasks.vote + 1;
+    tasks[_id] = _tasks;
+    emit TaskVote(_id, _tasks.vote);
   }
 }
