@@ -1,9 +1,6 @@
 App = {
   loading: false,
   contracts: {},
-  // captureFile: captureFile.bind(this),
-  // onSubmit: onSubmit.bind(this),
-  buffer: null,
 
   load: async () => {
     await App.loadWeb3()
@@ -61,7 +58,7 @@ App = {
   },
 
   render: async () => {
-
+    
     App.account = account;
     // Prevent double render
     if (App.loading) {
