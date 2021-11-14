@@ -100,9 +100,9 @@ App = {
       App.taskID = taskId
       const taskContent = "หัวข้อ: " + task[1] + " หมวดหมู่: " + task[2]
       const taskComment = " รายละเอียด: " + task[3]
-      const taskVote = task[4].toNumber()
-      const taskCompleted = task[5]
-
+      const taskVote = task[4].toNumber()+"/"+task[5].toNumber()
+      const taskCompleted = task[6]
+      
       // Create the html for the task
       const $newTaskID = $taskID.clone()
       const $newTaskTemplate = $taskTemplate.clone()
@@ -115,19 +115,18 @@ App = {
       $newTaskTemplate.find('input')
                       .prop('name', taskId)
                       .prop('comment', taskComment)
-                      .prop('checked', taskCompleted)
+                      .prop('completed',taskCompleted)
                       .on('click', App.toggleCompleted)
       $newTaskTemplate3.find('input')
                         .prop('name', taskId)
                         .prop('comment', taskComment)
-                        .prop('checked', taskCompleted)
+                        .prop('completed',taskCompleted)
                         .on('click', App.voteTask)         
       // Put the task in the correct list
       if (taskCompleted) {
-        $('#completedTaskList').append($newTaskTemplate)
+        $('#completedTaskList').append($newTaskID,$newTaskTemplate,$newTaskTemplate2,$newTaskTemplate3)
       } else {
         console.log($newTaskID)
-        
         $('#taskList').append($newTaskID,$newTaskTemplate,$newTaskTemplate2,$newTaskTemplate3)
       }
 
@@ -136,6 +135,7 @@ App = {
       $newTaskTemplate.show()
       $newTaskTemplate2.show()
       $newTaskTemplate3.show()
+      
     }
         
   },
@@ -143,10 +143,15 @@ App = {
     App.setLoading(true)
     var tasksId = e.target.name
     tasksId = parseInt(tasksId,10)
-    console.log(typeof tasksId)
-    console.log(App.account)
-    await App.todoList.vote(tasksId ,{ from:  App.account})
-    window.location.reload()
+    const tasksComp = e.target.completed
+    console.log(tasksComp)
+    if(tasksComp){
+      alert("Voting has ended")
+      window.location.reload()
+    }else{
+      await App.todoList.vote(tasksId, { from:  App.account})
+      window.location.reload()
+    }
   },
 
 
@@ -155,7 +160,9 @@ App = {
     const content = $('#topic').val()
     const catagory = $('#catagory').val()
     const comment = $('#comment').val()
-    await App.todoList.createTask(content,catagory,comment,{ from:  App.account}) 
+    var vote = $('#vote').val()
+    vote = parseInt(vote,10)
+    await App.todoList.createTask(content,catagory,comment,vote, { from:  App.account}) 
     window.location.reload()
   },
 

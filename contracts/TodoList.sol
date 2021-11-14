@@ -9,6 +9,7 @@ contract TodoList {
     string catagory;
     string comment;
     uint vote;
+    uint Vmax;
     bool completed;
   }
 
@@ -20,6 +21,7 @@ contract TodoList {
     string catagory,
     string comment,
     uint vote,
+    uint Vmax,
     bool completed
   );
 
@@ -35,15 +37,16 @@ contract TodoList {
 
 
 
-  function createTask(string memory _content , string memory _catagory, string memory _comment) public {
+  function createTask(string memory _content , string memory _catagory, string memory _comment,uint _Vmax) public {
     taskCount ++;
     tasks[taskCount].id = taskCount;
     tasks[taskCount].content = _content;
     tasks[taskCount].catagory = _catagory;
     tasks[taskCount].comment = _comment;
     tasks[taskCount].vote = 0;
+    tasks[taskCount].Vmax = _Vmax;
     tasks[taskCount].completed = false;
-    emit TaskCreated(taskCount, _content  , _catagory, _comment, 0, false);
+    emit TaskCreated(taskCount, _content  , _catagory, _comment, 0, _Vmax, false);
   }
 
   function toggleCompleted(uint _id) public {
@@ -56,7 +59,14 @@ contract TodoList {
   function vote(uint _id) public{
     Task memory _tasks = tasks[_id];
     _tasks.vote = _tasks.vote + 1;
-    tasks[_id] = _tasks;
-    emit TaskVote(_id, _tasks.vote);
+    if(_tasks.Vmax == _tasks.vote){
+      tasks[_id] = _tasks;
+      toggleCompleted(_id);
+      emit TaskVote(_id, _tasks.vote);
+    }else{
+      tasks[_id] = _tasks;
+      emit TaskVote(_id, _tasks.vote);
+    }
+    
   }
 }

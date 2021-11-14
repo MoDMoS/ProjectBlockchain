@@ -17,21 +17,18 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-      main {
-        margin-top: 60px;
-      }
 
       #content {
         background-color: rgb(236, 236, 236);
         display: none;
         border:3px solid rgb(144, 170, 255);
-        top: 100px;
-        left: 800px;
-        padding: 20px;
-        position: fixed;
-
+        width: auto;
+        left: 730px;
+        padding: 10px;
+        position: relative;
+        font-family:'Courier New';
+        margin-top: 30px;
       }
-
       form {
         width: 350px;
         margin-bottom: 10px;
@@ -58,6 +55,12 @@
         text-decoration: none;
         font-size: 20px;
       }
+      .topnav p {
+        color: white;
+        float: right;
+        font-size: 20px;
+        margin-top: 15px;
+      }
 
       .topnav a:hover {
         background-color: #ddd;
@@ -67,6 +70,21 @@
       .topnav a.active {
         color: white;
         float: left;
+        font-size: 30px;
+      }
+      .head{
+        color: rgb(251, 255, 0);
+        position: relative;
+        width: 1900px;
+        height: 500px;
+        background-image: url('img.jpg');
+        background-size: 100% 100%;
+      }
+      .head h1{
+        position: absolute;
+        top: 200px;
+        left: 700px;
+        font-size: 80px;
       }
       #catagory{
         width: 350px;
@@ -76,35 +94,42 @@
   </head>
   <body style="background-color:rgb(199, 199, 199);">
     <div class="topnav">
-      <a class="active" href="index.html">Dapp Voting</a>
-      <a style="color:white ; font-family:'Courier New'" id="account" href="account.html"></a>
-      <a style="color:white ; font-family:'Courier New'" href="index.html">Home</a>
-      <a style="color:white ; font-family:'Courier New'" href="view.html">View</a>
-      <a style="color:white ; font-family:'Courier New'" href="create.html">Create</a>
+      <a class="active" href="index.html" >Dapp Voting</a>
+      <p id="account"></p>
+      <a href="index.html">Home</a>
+      <a href="view.html">View</a>
+      <a href="create.html">Create</a>
+    </div>
+    <div class="head" style="background-image: url('img.jpg');">
+      <h1>Create Vote</h1>
     </div>
     <div class="container-fluid" >
-      <div class="row">
-        <main role="main" class="col-lg-12 d-flex justify-content-center">
-          <div id="loader" class="text-center">
-            <p class="text-center">Loading...</p>
-          </div>
+      <main role="main" class="col-lg-12 d-flex justify-content-center">
+        <div id="loader" class="text-center">
+          <p class="text-center">Loading...</p>
+        </div>
+      </main>
+        <div class="row">
           <div id="content">
             <form onSubmit="App.createTask(); return false;">
-                <h1 align="Center">Create Vote</h1>
                 <h3>หัวข้อ</h3>
                 <input id="topic" type="text" class="form-control" placeholder="Add task..." required><br>
                 <h3>หมวดหมู่</h3>
                 <select name="catagory" id="catagory" type="text" width="100px">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    <option value="สัตว์">สัตว์</option>
+                    <option value="สิทธิมนุษยชน">สิทธิมนุษยชน</option>
+                    <option value="การศึกษา">การศึกษา</option>
+                    <option value="ความเป็นธรรมทางเศรษฐกิจ">ความเป็นธรรมทางเศรษฐกิจ</option>
+                    <option value="การเมือง">การเมือง</option>
+                    <option value="เรื่องที่เกิดขึ้นในชุมชน">เรื่องที่เกิดขึ้นในชุมชน</option>
+                    <option value="สิ่งแวดล้อม">สิ่งแวดล้อม</option>
+                    <option value="การใช้กฎหมายอย่างเป็นธรรม">การใช้กฎหมายอย่างเป็นธรรม</option>
                 </select>
                 <br><br>
                 <h3>รายละเอียด</h3>
                 <textarea id="comment" type="text" class="form-control" placeholder="รายละเอียด" rows="10" required></textarea><br>
-                <h3>รูปภาพ</h3>
-                <input type="file" id="img" name="img" accept="image/*"/>
+                <h3>จำนวนโหวตที่ต้องการ</h3>
+                <input id="vote" type="text" class="form-control" placeholder="Number of votes required" required>
                 <br><br>
                 <div align="Center">
                   <input type="submit" class="btn btn-success btn-lg">
@@ -112,7 +137,7 @@
             </form>
             </ul>
           </div>
-        </main>
+        
       </div>
     </div>
 

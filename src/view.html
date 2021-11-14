@@ -21,12 +21,25 @@
         background-color: rgb(236, 236, 236);
         display: none;
         border:3px solid rgb(144, 170, 255);
-        top: 100px;
-        left: 750px;
+        left: 250px;
         width: 500px;
         padding: 10px;
-        position: fixed;
-        font-family:'Courier New'
+        position: relative;
+        font-family:'Courier New';
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+      #content2 {
+        background-color: rgb(236, 236, 236);
+        /* display: none; */
+        border:3px solid rgb(144, 170, 255);
+        left: 650px;
+        width: 500px;
+        padding: 10px;
+        position: relative;
+        font-family:'Courier New';
+        margin-top: 30px;
+        margin-bottom: 30px;
       }
 
       form {
@@ -38,9 +51,8 @@
         margin-bottom: 10px;
       }
 
-      #completedTaskList .content {
-        color: grey;
-        text-decoration: line-through;
+      #completedTaskList {
+        font-weight: bold;
       }
       .topnav {
         overflow: hidden;
@@ -55,16 +67,16 @@
         text-decoration: none;
         font-size: 20px;
       }
+      .topnav p {
+        color: white;
+        float: right;
+        font-size: 20px;
+        margin-top: 15px;
+      }
 
       .topnav a:hover {
         background-color: #ddd;
         color: black;
-      }
-
-      .topnav a {
-        color: white;
-        float: right;
-        font-size: 20px;
       }
 
       .topnav a.active {
@@ -72,12 +84,26 @@
         float: left;
         font-size: 30px;
       }
+      #taskList{
+        font-weight: bold;
+      }
       #catagory{
         width: 350px;
         height: 30px;
       }
-      .vote{
-
+      .head{
+        color: rgb(251, 255, 0);
+        position: relative;
+        width: 1900px;
+        height: 500px;
+        background-image: url('img.jpg');
+        background-size: 100% 100%;
+      }
+      .head h1{
+        position: absolute;
+        top: 200px;
+        left: 800px;
+        font-size: 80px;
       }
       .bg{
         background-color: lightblue;
@@ -88,14 +114,18 @@
   <body style="background-color:rgb(199, 199, 199);">
     <div class="topnav">
       <a class="active" href="index.html" >Dapp Voting</a>
-      <a id="account" href="account.html"></a>
+      <p id="account"></p>
       <a href="index.html">Home</a>
       <a href="view.html">View</a>
       <a href="create.html">Create</a>
     </div>
+    <div class="head" style="background-image: url('img.jpg');">
+      <h1>All votes</h1>
+    </div>
     <div class="container-fluid">
       <div class="row">
           <div id="content">
+            <h1 align="center" style="font-weight: bold;">Voting in progress</h1>
             <ul id="taskList">
               <div class="taskID" id="TaskID" style="display: none">
                 <span  class="content">Task content goes here...</span>
@@ -109,12 +139,15 @@
               <div class="taskTemplate3" style="display: none">
                 <span class="content">Task content goes here...</span>
                 <div align="right">
-                  <input type="submit" id="btn" class="btn btn-success btn-lg vote" />
+                  <input type="submit" id="btn" class="btn btn-success btn-lg vote" value="VOTE"/>
                   <hr>
                 </div>
-                  
               </div>
-              
+            </ul>
+          </div>
+          <div id="content2">
+            <h1 align="center" style="font-weight: bold;">Voting has ended</h1>
+            <ul id="completedTaskList">
             </ul>
           </div>
       </div>
@@ -132,7 +165,7 @@
         document.getElementById("myBtn").innerText = x;
        console.log(x);
       }
-  </script>
+    </script>
     <!-- <script src="ipfs.js"></script> -->
     <!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->
     <!-- <script src="image.js" type="module"></script> -->
